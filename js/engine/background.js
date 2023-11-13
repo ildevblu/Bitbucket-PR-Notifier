@@ -1,19 +1,12 @@
 
 
-const storageCache = { bbUrl: null };
-
-const initStorageCache = chrome.storage.sync.get().then((items) => {
-// Copy the data retrieved from storage into storageCache.
-	Object.assign(storageCache, items);
-});
-
 const updatePRBadgeCount = async () => {
 	try {
-		await initStorageCache;
+		const storage = await chrome.storage.sync.get();
 
-		if(!storageCache.bbUrl) throw "bitBucket Url not set";
+		if(!storage.bbUrl) throw "bitBucket Url not set";
 
-		fetch(`${storageCache.bbUrl}/rest/api/latest/inbox/pull-requests?role=REVIEWER&start=0&limit=10&avatarSize=64&withAttributes=true&state=OPEN&order=oldest`)
+		fetch(`${storage.bbUrl}/rest/api/latest/inbox/pull-requests?role=REVIEWER&start=0&limit=10&avatarSize=64&withAttributes=true&state=OPEN&order=oldest`)
 		.then((response) => response.json())
 		.then((json) => {
 			if(json.size) {
@@ -25,7 +18,8 @@ const updatePRBadgeCount = async () => {
 			}
 		}); 
 	} catch (e) {
-	console.log(e);
+		chrome.action.setBadgeText({text: ""});
+		console.log(e);
 	}	
 }
 

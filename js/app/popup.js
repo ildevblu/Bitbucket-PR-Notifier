@@ -1,18 +1,55 @@
-const storageCache = { bbUrl: null };
+const storageCache = {bbUrl : null};
 
-const initStorageCache = chrome.storage.sync.get().then((items) => {
-  // Copy the data retrieved from storage into storageCache.
-  Object.assign(storageCache, items);
+const setupSection = document.querySelector("#setupSection");
+const setupBtn = document.querySelector("#setupBtn");
+const bitbucketUrlTxt = document.querySelector("#bitbucketUrl");
+const bitbucketErrorLabel = document.querySelector("#bitbucketErrorLabel");
+
+const prSection = document.querySelector("#prSection");
+const clearStorageBtn = document.querySelector("#clearStorageBtn");
+const prListUL = document.querySelector("#prList");
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // step 1: check if app is already setup
+  const storage = await chrome.storage.sync.get();
+  // step 2: update storage cache
+  Object.assign(storageCache, storage);
+  // step 3: if setup ok > show list, else show setup
+  if (storageCache.bbUrl) {
+    fetch(
+      `${storageCache.bbUrl}/rest/api/latest/inbox/pull-requests?role=REVIEWER&start=0&limit=10&avatarSize=64&withAttributes=true&state=OPEN&order=oldest`
+    )
+      .then((response) => response.json())
+      .then((json) => {
+        updatePRBadgeCount(json.size);
+        showPRs(json.values);
+        prSection.removeAttribute("hidden");
+      });
+  } else {
+    updatePRBadgeCount(0);
+    setupSection.removeAttribute("hidden");
+  }
 });
 
-const afterSetup = (bbUrl) => {
+const afterSetup = async (bbUrl) => {
   storageCache.bbUrl = bbUrl;
-  chrome.storage.sync.set(storageCache);
+  await chrome.storage.sync.set(storageCache);
+
+  if (bbUrl) {
+    setupSection.setAttribute("hidden", true);
+    prSection.removeAttribute("hidden");
+  } else {
+    prSection.setAttribute("hidden", true);
+    setupSection.removeAttribute("hidden");
+    updatePRBadgeCount(0);
+  }
 };
 
-const setupBtn = document.querySelector("#setupBtn");
+clearStorageBtn.addEventListener("click", async (ev) => {
+  afterSetup(null);
+});
+
 setupBtn.addEventListener("click", async (ev) => {
-  const bitbucketUrlTxt = document.querySelector("#bitbucketUrl");
   const bbUrl = bitbucketUrlTxt.value;
   if (!bbUrl) return;
 
@@ -24,47 +61,25 @@ setupBtn.addEventListener("click", async (ev) => {
 
     afterSetup(bbUrl);
     showPRs(jsonResp.values);
+    updatePRBadgeCount(jsonResp.size);
   } catch (e) {
-    console.log(e);
-  }
-});
-
-document.addEventListener("DOMContentLoaded", async () => {
-  // step 1: check if app is already setup
-  await initStorageCache;
-  // step 2: if setup ok > show list, else show setup
-  if (storageCache.bbUrl) {
-    fetch(
-      `${storageCache.bbUrl}/rest/api/latest/inbox/pull-requests?role=REVIEWER&start=0&limit=10&avatarSize=64&withAttributes=true&state=OPEN&order=oldest`
-    )
-      .then((response) => response.json())
-      .then((json) => {
-        updatePRBadgeCount(json.size);
-        showPRs(json.values);
-        document.querySelector("#prSection").removeAttribute("hidden");
-      });
-  } else {
-    document.querySelector("#setupSection").removeAttribute("hidden");
+    bitbucketErrorLabel.removeAttribute("hidden");
   }
 });
 
 const updatePRBadgeCount = (count) => {
-  if(count) {
+  if (count) {
     // Update badge color and count
     chrome.action.setBadgeBackgroundColor({ color: "#FF2020" }); // Imposta il colore di sfondo trasparente
     chrome.action.setBadgeText({ text: "" + count });
   } else {
-    chrome.action.setBadgeText({text: ""});
+    chrome.action.setBadgeText({ text: "" });
   }
-}
+};
 
 const showPRs = (prList) => {
-  const prListUL = document.querySelector("#prList");
+  prListUL.innerHTML = "";
   prList.forEach((pr) => {
     prListUL.innerHTML += `<li><a target="_blank" href="${pr.links.self[0]?.href}">${pr.title}</a><div>${pr.description}</div></li>`;
   });
-
-  // browserAction.onClicked.addListener(function (tab) {
-  //   console.log("Icona cliccata!");
-  // });
 };
