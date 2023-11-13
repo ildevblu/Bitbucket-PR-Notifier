@@ -20,5 +20,5 @@ updatePRBadgeCount();
 
 setInterval(function() {
    updatePRBadgeCount();
-}, 10000);
+}, 120000);
 
