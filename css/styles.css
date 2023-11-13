@@ -1,23 +1,65 @@
-body {
-	min-width: 500px;
+@font-face {
+    font-family: "Segoe UI";
+    src: url(./../fonts/Segoe_UI.ttf);
 }
 
-ul {
+body {
+	min-width: 500px;
+    font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+h1 {
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: -0.16px;
+    margin: 5px;
+}
+
+#prSection .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+#prSection .title > button {
+    background-color: #F4F5F7;
+    border: none;
+    border-radius: 20px;
+    font-size: 11px;
+    height: 32px;
+    color: #344563;
+    padding-left: 12px;
+    padding-right: 12px;
+    cursor: pointer;
+}
+
+#prSection #prList {
+    padding: 0;
+}
+
+#prSection ul {
 	display: grid;
     align-items: center;
     list-style-type: none;
     padding: 0;
 }
 
-li {
+#prSection li {
 	padding: 5px;
     display: flex;
     flex-direction: column;
-    background: #F2F2F2;
-    border-radius: 10px;
+    border-bottom: 1px solid #dfe1e6;
 }
 
-li > a {
+#prSection li > a {
 	padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    flex: 0 100000 auto;
+    min-width: 5em;
+    max-width: 100%;
+    font-size: 14px;
+    color: #0052cc;
 }
 

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Bitbucket PR Notifier",
-  "version": "0.4",
+  "version": "0.5",
   "description": "Track and notify all your Opened Pull Requests",
   "permissions": [
     "storage"

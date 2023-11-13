@@ -5,7 +5,9 @@
   </head>
   <body>
     <section id="setupSection" hidden>
-      <h1>Setup</h1>
+      <div class="title">
+        <h1>Setup</h1>
+      </div>
       <input type="text" name="Bitbucket Url" id="bitbucketUrl" placeholder="https://git.yourwebsite.net"/>
       <button id="setupBtn">Confirm</button>
       <label id="bitbucketErrorLabel" for="bitbucketUrl" hidden>
@@ -17,7 +19,11 @@
       </label>
     </section>
     <section id="prSection" hidden>
-      <h1>My pull requests <button id="clearStorageBtn">Change BitBucket URL</button></h1>
+      <div class="title">
+        <h1>My pull requests</h1>
+        <button id="clearStorageBtn">Change BitBucket URL</button>
+      </div>
+      
       <ul id="prList"></ul>
     </section>
     <script src="js/app/popup.js"></script>
