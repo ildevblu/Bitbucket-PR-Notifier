@@ -1,0 +1,23 @@
+body {
+	min-width: 500px;
+}
+
+ul {
+	display: grid;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+	padding: 5px;
+    display: flex;
+    flex-direction: column;
+    background: #F2F2F2;
+    border-radius: 10px;
+}
+
+li > a {
+	padding: 5px;
+}
+
