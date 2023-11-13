@@ -1,4 +1,4 @@
-const storageCache = {bbUrl : null};
+const storageCache = {bbUrl : null, lastBbUrl: null};
 
 const setupSection = document.querySelector("#setupSection");
 const setupBtn = document.querySelector("#setupBtn");
@@ -27,12 +27,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
   } else {
     updatePRBadgeCount(0);
-    setupSection.removeAttribute("hidden");
+    showSetupSection();
   }
 });
 
+const showSetupSection = () => {
+  if(storageCache.lastBbUrl) {
+    bitbucketUrlTxt.value = storageCache.lastBbUrl;
+  }
+  setupSection.removeAttribute("hidden");
+}
+
 const afterSetup = async (bbUrl) => {
+  if(storageCache.bbUrl) 
+    storageCache.lastBbUrl = storageCache.bbUrl; // save last bbUrl
   storageCache.bbUrl = bbUrl;
+
   await chrome.storage.sync.set(storageCache);
 
   if (bbUrl) {
@@ -40,13 +50,13 @@ const afterSetup = async (bbUrl) => {
     prSection.removeAttribute("hidden");
   } else {
     prSection.setAttribute("hidden", true);
-    setupSection.removeAttribute("hidden");
+    showSetupSection();
     updatePRBadgeCount(0);
   }
 };
 
 clearStorageBtn.addEventListener("click", async (ev) => {
-  afterSetup(null);
+  await afterSetup(null);
 });
 
 setupBtn.addEventListener("click", async (ev) => {
