@@ -44,15 +44,19 @@ h1 {
     padding: 0;
 }
 
-#prSection li {
-	padding: 5px;
-    display: flex;
-    flex-direction: column;
+#prSection li.pr {
+    padding: 15px 10px;
     border-bottom: 1px solid #dfe1e6;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-#prSection li > a {
-	padding: 5px;
+#prSection li.pr > .prLinkContainer {
+    width: 100%;
+}
+
+#prSection li.pr > .prLinkContainer > a.prLink {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -61,5 +65,60 @@ h1 {
     max-width: 100%;
     font-size: 14px;
     color: #0052cc;
+    text-decoration: none;
+    font-size: 14px;
+    width: fit-content;
 }
 
+#prSection li.pr > .prLinkContainer > .repo {
+    color: #7A869A;
+    size: 12px;
+}
+
+#prSection .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+#prSection .reviewers {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    width: 100%;
+}
+
+#prSection .avatar.reviewer {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+#prSection .avatar.others {
+    background-color: #f4f5f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#prSection .avatar.others:before {
+    content:'+';
+}
+
+#prSection .badge {
+    width: 18px;
+    height: 18px;
+    margin-left: -10px;
+    margin-top: -23px;
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#prSection .badge > .badgeIcon {
+    width: 14px;
+    height: 14px;
+
+}
