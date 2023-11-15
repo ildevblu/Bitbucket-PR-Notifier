@@ -4,8 +4,45 @@
 }
 
 body {
-	min-width: 700px;
     font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+#setupSection {
+	min-width: 300px;
+}
+
+#prSection {
+	min-width: 700px;
+}
+
+#setupSection input {
+    background-color: #f4f5f773;
+    border: none;
+    border-radius: 20px;
+    font-size: 11px;
+    height: 28px;
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 200px;
+    outline: 2px solid #e9e9e9;
+    margin-right: 5px;
+    color: #696969;
+}
+
+#setupSection input:focus-visible {
+    outline-color: #b8b8b8;
+}
+
+#setupSection button {
+    background-color: #F4F5F7;
+    border: none;
+    border-radius: 20px;
+    font-size: 11px;
+    height: 32px;
+    color: #344563;
+    padding-left: 12px;
+    padding-right: 12px;
+    cursor: pointer;
 }
 
 h1 {
