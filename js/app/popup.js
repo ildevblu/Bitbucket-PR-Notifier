@@ -90,7 +90,7 @@ setupBtn.addEventListener("click", async (ev) => {
 const updatePRBadgeCount = (count) => {
   if (count) {
     // Update badge color and count
-    chrome.action.setBadgeBackgroundColor({ color: "#FF2020" }); // Imposta il colore di sfondo trasparente
+    chrome.action.setBadgeBackgroundColor({ color: "#FF2020" });
     chrome.action.setBadgeText({ text: "" + count });
   } else {
     chrome.action.setBadgeText({ text: "" });
@@ -101,9 +101,9 @@ const showReviewers = pr => {
   let htmlOutput = "";
 
   //find ourselves
-
   const selfProfile = pr.reviewers.find(reviewer => reviewer.user.emailAddress === storageCache.email);
   let remainingReviewers = pr.reviewers.filter(reviewer => reviewer.user.emailAddress !== storageCache.email);
+  // find others by status
   const unapprovedReviewers = remainingReviewers.filter(reviewer => reviewer.status === "UNAPPROVED");
   const approvedReviewers = remainingReviewers.filter(reviewer => reviewer.status === "APPROVED");
   const needWorkReviewers = remainingReviewers.filter(reviewer => reviewer.status !== "APPROVED" && reviewer.status !== "UNAPPROVED" );
@@ -122,22 +122,26 @@ const showReviewers = pr => {
     approvedReviewersToShow++;
   }
 
+  if(pr.properties?.commentCount) {
+    htmlOutput += `<span class="comments"><img class="commentIcon" src="../../img/speech.png">${pr.properties.commentCount}</span>`;
+  }
+
   if(pr.reviewers.length > 3) {
     htmlOutput += `<span class="avatar reviewer others">${pr.reviewers.length - 3}</span>`;
   }
 
   for(let i = 0; i < approvedReviewersToShow && i < approvedReviewers.length; i++) {
     htmlOutput += `<span class="badge"><img class="badgeIcon" src="../../img/check.svg"></span>`;
-    htmlOutput += `<img class="avatar reviewer" src=${storageCache.bbUrl}${approvedReviewers[i].user.avatarUrl}>`;
+    htmlOutput += `<img class="avatar reviewer" src=${storageCache.bbUrl}${approvedReviewers[i]?.user?.avatarUrl}>`;
   }
 
   for(let i = 0; i < unapprovedReviewersToShow && i < unapprovedReviewers.length; i++) {
-    htmlOutput += `<img class="avatar reviewer" src=${storageCache.bbUrl}${unapprovedReviewers[i].user.avatarUrl}>`;
+    htmlOutput += `<img class="avatar reviewer" src=${storageCache.bbUrl}${unapprovedReviewers[i]?.user?.avatarUrl}>`;
   }
 
   for(let i = 0; i < needWorkReviewersToShow && i < needWorkReviewersToShow.length; i++) {
     htmlOutput += `<span class="badge"><img class="badgeIcon" src="../../img/needwork.png"></span>`;
-    htmlOutput += `<img class="avatar reviewer" src=${storageCache.bbUrl}${needWorkReviewers[i].user.avatarUrl}>`;
+    htmlOutput += `<img class="avatar reviewer" src=${storageCache.bbUrl}${needWorkReviewers[i]?.user?.avatarUrl}>`;
   }
 
   htmlOutput += `<img class="avatar reviewer" src=${storageCache.bbUrl}${selfProfile.user?.avatarUrl}>`;
@@ -153,7 +157,7 @@ const showPRs = (prList) => {
       <img class="avatar author" src=${storageCache.bbUrl}${pr.author.user.avatarUrl}>
       <div class="prLinkContainer">
         <a class="prLink" target="_blank" href="${pr.links.self[0]?.href}">${pr.title}</a>
-        <div class="repo">${pr.fromRef.repository.project.name} / ${pr.fromRef.repository.name}</div>
+        <div class="repo">${pr.fromRef?.repository?.project?.name} / ${pr.fromRef?.repository?.name}</div>
       </div>
       <div class="reviewers">
         ${ showReviewers(pr) }

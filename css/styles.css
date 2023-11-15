@@ -4,7 +4,7 @@
 }
 
 body {
-	min-width: 500px;
+	min-width: 700px;
     font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
@@ -120,4 +120,21 @@ h1 {
 #prSection .badge > .badgeIcon {
     width: 14px;
     height: 14px;
+}
+
+
+#prSection .comments {
+    width: auto;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 20px;
+    font-size: 14px;
+    color: #5E6C84;
+}
+
+#prSection .comments > .commentIcon {
+    width: 16px;
+    height: 16px;
 }
