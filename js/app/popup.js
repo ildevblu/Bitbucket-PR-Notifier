@@ -7,6 +7,7 @@ const bitbucketErrorLabel = document.querySelector("#bitbucketErrorLabel");
 
 const prSection = document.querySelector("#prSection");
 const clearStorageBtn = document.querySelector("#clearStorageBtn");
+const gotoBitBucketBtn = document.querySelector("#gotoBitBucketBtn");
 const prListUL = document.querySelector("#prList");
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -69,6 +70,10 @@ const afterSetup = async (bbUrl) => {
 
 clearStorageBtn.addEventListener("click", async (ev) => {
   await afterSetup(null);
+});
+
+gotoBitBucketBtn.addEventListener("click", async (ev) => {
+  window.open(storageCache.bbUrl);
 });
 
 setupBtn.addEventListener("click", async (ev) => {

@@ -79,7 +79,18 @@ h1 {
     text-decoration: none;
 }
 
-#prSection .title > button {
+#prSection .title .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+#prSection .title button#gotoBitBucketBtn > img {
+    width: 16px;
+    height: 16px;
+}
+
+#prSection .title button {
     background-color: #F4F5F7;
     border: none;
     border-radius: 20px;
