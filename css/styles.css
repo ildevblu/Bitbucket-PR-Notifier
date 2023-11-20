@@ -178,6 +178,9 @@ h1 {
     height: 14px;
 }
 
+#prSection .badge > .badgeIcon.needwork {
+    transform: rotate(45deg);
+}
 
 #prSection .comments {
     width: auto;

@@ -167,7 +167,7 @@ const showReviewers = (pr) => {
     i < needWorkReviewersToShow && i < needWorkReviewersToShow.length;
     i++
   ) {
-    htmlOutput += `<span class="badge"><img class="badgeIcon" src="../../img/needwork.png"></span>`;
+    htmlOutput += `<span class="badge"><img class="badgeIcon needwork" src="../../img/needwork.png"></span>`;
     htmlOutput += `<img class="avatar reviewer" src=${storageCache.bbUrl}${needWorkReviewers[i]?.user?.avatarUrl}>`;
   }
 
