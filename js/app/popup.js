@@ -121,6 +121,7 @@ const showReviewers = (pr) => {
       reviewer.status !== "APPROVED" && reviewer.status !== "UNAPPROVED"
   );
 
+  // choose what reviewers should be shown
   let needWorkReviewersToShow = 0;
   let approvedReviewersToShow = 0;
   let unapprovedReviewersToShow = 2;
@@ -130,7 +131,15 @@ const showReviewers = (pr) => {
     needWorkReviewersToShow++;
   }
 
-  if (approvedReviewers.length > 0) {
+  if (needWorkReviewers.length > 1 && approvedReviewers.length == 0) {
+    unapprovedReviewersToShow--;
+    needWorkReviewersToShow++;
+  } else if(approvedReviewers.length > 0) {
+    unapprovedReviewersToShow--;
+    approvedReviewersToShow++;
+  }
+
+  if (approvedReviewers.length > 1 && unapprovedReviewersToShow > 0 && unapprovedReviewers.length == 0) {
     unapprovedReviewersToShow--;
     approvedReviewersToShow++;
   }
@@ -144,6 +153,8 @@ const showReviewers = (pr) => {
       pr.reviewers.length - 3
     }</span>`;
   }
+
+  // show reviewers based on previous filter
 
   for (
     let i = 0;
@@ -159,6 +170,7 @@ const showReviewers = (pr) => {
     i < unapprovedReviewersToShow && i < unapprovedReviewers.length;
     i++
   ) {
+    htmlOutput += `<span class="badge hidden"></span>`;
     htmlOutput += `<img class="avatar reviewer" src=${storageCache.bbUrl}${unapprovedReviewers[i]?.user?.avatarUrl}>`;
   }
 
@@ -171,6 +183,7 @@ const showReviewers = (pr) => {
     htmlOutput += `<img class="avatar reviewer" src=${storageCache.bbUrl}${needWorkReviewers[i]?.user?.avatarUrl}>`;
   }
 
+  htmlOutput += `<span class="badge hidden"></span>`;
   htmlOutput += `<img class="avatar reviewer" src=${storageCache.bbUrl}${selfProfile.user?.avatarUrl}>`;
 
   return htmlOutput;

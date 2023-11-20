@@ -46,6 +46,8 @@ body {
 
 hr {
     border: 1px solid #ebecf0;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 h1 {
@@ -91,17 +93,18 @@ h1 {
 
 #prSection #prList {
     padding: 0;
+    min-height: 110px;
 }
 
 #prSection ul {
-	display: grid;
-    align-items: center;
+    display: grid;
+    align-items: start;
     list-style-type: none;
-    padding: 0;
 }
 
 #prSection li.pr {
-    padding: 15px 10px;
+    padding: 0 5px 12px 5px;
+    margin: 10px 10px 0 10px;
     border-bottom: 1px solid #dfe1e6;
     display: flex;
     flex-direction: row;
@@ -146,7 +149,7 @@ h1 {
 }
 
 #prSection .avatar.reviewer {
-    margin-left: 10px;
+    margin-left: 3px;
     margin-right: 0;
 }
 
@@ -162,8 +165,8 @@ h1 {
 }
 
 #prSection .badge {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     margin-left: -10px;
     margin-top: -23px;
     background-color: white;
@@ -173,9 +176,13 @@ h1 {
     justify-content: center;
 }
 
+#prSection .badge.hidden {
+    visibility: hidden;
+}
+
 #prSection .badge > .badgeIcon {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
 }
 
 #prSection .badge > .badgeIcon.needwork {
