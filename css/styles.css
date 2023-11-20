@@ -61,6 +61,22 @@ h1 {
     align-items: center
 }
 
+#prSection .reviewing {
+    color: #0052cc;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 5px;
+    margin-top: 20px;
+    display: flex;
+    border-bottom: 2px solid #0052cc;
+    width: fit-content;
+    margin-bottom: -8px;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 3px;
+    text-decoration: none;
+}
+
 #prSection .title > button {
     background-color: #F4F5F7;
     border: none;
