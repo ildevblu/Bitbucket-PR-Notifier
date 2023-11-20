@@ -8,8 +8,11 @@
       <div class="title">
         <h1>Setup</h1>
       </div>
-      <input type="text" name="Bitbucket Url" id="bitbucketUrl" placeholder="https://git.yourwebsite.net"/>
-      <button id="setupBtn">Confirm</button>
+      <hr>
+      <div class="loginForm">
+        <input type="text" name="Bitbucket Url" id="bitbucketUrl" placeholder="https://git.yourwebsite.net"/>
+        <button id="setupBtn">Confirm</button>
+      </div>
       <label id="bitbucketErrorLabel" for="bitbucketUrl" hidden>
         <p>Error on retrieving information from the given URL</p>
         <ul>
@@ -23,7 +26,7 @@
         <h1>My pull requests</h1>
         <button id="clearStorageBtn">Change BitBucket URL</button>
       </div>
-      
+      <hr>
       <ul id="prList"></ul>
     </section>
     <script src="js/app/popup.js"></script>
